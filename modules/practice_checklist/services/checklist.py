@@ -9,7 +9,7 @@ from app.core.context import get_current_user_id
 from app.core.serializer import serialize
 from app.core.services import exposed_action
 
-from ..models import PracticeChecklist, PracticeChecklistItem
+from ..models import PracticeChecklist, PracticeChecklistItem, PracticeChecklistSettings
 
 
 class PracticeChecklistService(BaseService):
@@ -88,3 +88,24 @@ class PracticeChecklistItemService(BaseService):
         self.repo.session.commit()
         
         return {"status": "success", "processed": len(id)}
+    
+class PracticeChecklistSettingsService(BaseService):
+
+    def get_setting(self, key: str, default: str | None = None) -> str | None:
+        """Obtiene el valor de una configuración por clave."""
+        setting = self.repo.session.query(PracticeChecklistSettings).filter_by(key=key).first()
+        if setting:
+            return setting.value
+        return default
+
+    @exposed_action("write", groups=["practice_checklist_group_manager", "core_group_superadmin"])
+    def set_setting(self, key: str, value: str) -> dict:
+        """Establece o actualiza una configuración."""
+        setting = self.repo.session.query(PracticeChecklistSettings).filter_by(key=key).first()
+        if setting:
+            setting.value = value
+        else:
+            setting = PracticeChecklistSettings(key=key, value=value)
+        self.repo.session.add(setting)
+        self.repo.session.commit()
+        return {"success": True, "key": key, "value": value}

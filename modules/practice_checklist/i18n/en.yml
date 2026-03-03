@@ -1,0 +1,26 @@
+en:
+  practice_checklist_view_checklist_list: "Checklists - List"
+  practice_checklist_view_checklist_form: "Checklist - Form"
+  practice_checklist_view_item_list: "Items - List"
+  practice_checklist_view_item_form: "Item - Form"
+  practice_checklist_view_settings_list: "Settings - List"
+  
+  close: "Close"
+  reopen: "Reopen"
+  set_done: "Mark as done"
+  set_done_bulk: "Mark all as done"
+  
+  name: "Name"
+  description: "Description"
+  status: "Status"
+  is_public: "Public"
+  owner_id: "Owner"
+  closed_at: "Closed at"
+  title: "Title"
+  assigned_user_id: "Assigned to"
+  is_done: "Done"
+  done_at: "Done at"
+  note: "Note"
+  
+  practice_checklist_group_reader: "Practice Checklist - Read"
+  practice_checklist_group_manager: "Practice Checklist - Manage"

@@ -9,5 +9,7 @@ data:
   - data/ui_modules.yml
   - data/settings.yml
   - views/views.yml
+  - i18n/es.yml
+  - i18n/en.yml
 migrations: {}
 post_init_hook: null

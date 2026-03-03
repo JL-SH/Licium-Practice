@@ -1,0 +1,20 @@
+- model: practice_checklist.settings
+  ext_id: practice_checklist_setting_auto_close
+  fields:
+    key: "auto_close_enabled"
+    value: "false"
+    description: "Habilitar cierre automático de checklists después de cierto tiempo"
+
+- model: practice_checklist.settings
+  ext_id: practice_checklist_setting_auto_close_days
+  fields:
+    key: "auto_close_days"
+    value: "7"
+    description: "Días para cerrar automáticamente un checklist completado"
+
+- model: practice_checklist.settings
+  ext_id: practice_checklist_setting_notification_enabled
+  fields:
+    key: "notification_enabled"
+    value: "true"
+    description: "Enviar notificaciones cuando un ítem es marcado como hecho"

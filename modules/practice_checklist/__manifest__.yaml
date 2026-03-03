@@ -7,6 +7,7 @@ data:
   - data/groups.yml
   - data/acl_rules.yml
   - data/ui_modules.yml
+  - data/settings.yml
   - views/views.yml
 migrations: {}
 post_init_hook: null

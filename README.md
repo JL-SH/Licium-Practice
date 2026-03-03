@@ -1,4 +1,4 @@
-# LibnamicProyectos - Backend
+# Licium Practice
 
 Sistema modular de backend basado en Licium para la gestión de checklists internos con soporte para múltiples idiomas, configuración dinámica y acciones masivas.
 
@@ -47,5 +47,6 @@ El proyecto completa el tutorial en `docs/tutorial_incremental_modulos_backend.m
 
 - Tutorial completo: `docs/tutorial_incremental_modulos_backend.md`
 - Módulo: `modules/practice_checklist/`
+
 
 ---

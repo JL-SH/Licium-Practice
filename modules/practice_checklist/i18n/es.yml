@@ -1,0 +1,26 @@
+es:
+  practice_checklist_view_checklist_list: "Checklists - Lista"
+  practice_checklist_view_checklist_form: "Checklist - Formulario"
+  practice_checklist_view_item_list: "Ítems - Lista"
+  practice_checklist_view_item_form: "Ítem - Formulario"
+  practice_checklist_view_settings_list: "Configuración - Lista"
+  
+  close: "Cerrar"
+  reopen: "Reabrir"
+  set_done: "Marcar como hecho"
+  set_done_bulk: "Marcar como hechos"
+  
+  name: "Nombre"
+  description: "Descripción"
+  status: "Estado"
+  is_public: "Público"
+  owner_id: "Responsable"
+  closed_at: "Cerrado en"
+  title: "Título"
+  assigned_user_id: "Asignado a"
+  is_done: "Hecho"
+  done_at: "Hecho en"
+  note: "Nota"
+  
+  practice_checklist_group_reader: "Practice Checklist - Lectura"
+  practice_checklist_group_manager: "Practice Checklist - Gestión"

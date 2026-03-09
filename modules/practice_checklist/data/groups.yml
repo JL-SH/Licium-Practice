@@ -1,0 +1,11 @@
+- model: core.group
+  ext_id: practice_checklist_group_reader
+  fields:
+    name: "Checklist | Lectura"
+    parent_id.ext_id: core.core_group_internal_user
+
+- model: core.group
+  ext_id: practice_checklist_group_manager
+  fields:
+    name: "Checklist | Gestión"
+    parent_id.ext_id: practice_checklist_group_reader

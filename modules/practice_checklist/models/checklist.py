@@ -86,7 +86,7 @@ class PracticeChecklistItem(Base):
     __tablename__ = "practice_checklist_item"
     __abstract__ = False
     __model__ = "checklist_item"
-    __service__ = "modules.practice_checklist.services.checklist.PracticeChecklistItemService"
+    __service__ = "modules.practice_checklist.services.checklist_item_override.PracticeChecklistItemAutoCloseService"
 
     __selector_config__ = {
         "label_field": "title",

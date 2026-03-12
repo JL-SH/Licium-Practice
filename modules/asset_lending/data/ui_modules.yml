@@ -1,0 +1,6 @@
+- model: ui.uimodule
+  ext_id: asset_lending_ui_module
+  fields:
+    slug: asset-lending
+    name: Asset Lending
+    active: true

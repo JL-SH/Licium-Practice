@@ -1,0 +1,16 @@
+- model: core.aclrule
+  ext_id: asset_lending_acl_reader_read
+  fields:
+    model_key: "asset_lending.*"
+    group_id.ext_id: asset_lending_group_reader
+    perm_read: true
+
+- model: core.aclrule
+  ext_id: asset_lending_acl_manager_all
+  fields:
+    model_key: "asset_lending.*"
+    group_id.ext_id: asset_lending_group_manager
+    perm_read: true
+    perm_write: true
+    perm_create: true
+    perm_delete: true

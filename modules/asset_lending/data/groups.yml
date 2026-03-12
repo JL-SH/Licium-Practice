@@ -1,0 +1,11 @@
+- model: core.group
+  ext_id: asset_lending_group_reader
+  fields:
+    name: "Asset Lending - Lectura"
+    parent_id.ext_id: core.core_group_internal_user
+
+- model: core.group
+  ext_id: asset_lending_group_manager
+  fields:
+    name: "Asset Lending - Gestion"
+    parent_id.ext_id: asset_lending_group_reader

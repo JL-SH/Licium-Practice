@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import backref, relationship
+from fastapi_users_db_sqlalchemy.generics import GUID
 from app.core.base import Base
 from app.core.fields import field
 
@@ -61,7 +62,7 @@ class PracticeChecklist(Base):
         info={"label": {"es": "Público", "en": "Public"}},
     )
     owner_id = field(
-        Integer,
+        GUID,
         ForeignKey("core_user.id"),
         required=False,
         public=True,
@@ -128,7 +129,7 @@ class PracticeChecklistItem(Base):
         info={"label": {"es": "Nota", "en": "Note"}},
     )
     assigned_user_id = field(
-        Integer,
+        GUID,
         ForeignKey("core_user.id"),
         required=False,
         public=True,

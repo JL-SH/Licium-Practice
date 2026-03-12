@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
+from fastapi_users_db_sqlalchemy.generics import GUID
 from app.core.base import Base
 from app.core.fields import field
 
@@ -107,7 +108,7 @@ class Asset(Base):
         info={"public": True, "recursive": False, "editable": True},
     )
     responsible_user_id = field(
-        Integer,
+        GUID,
         ForeignKey("core_user.id"),
         required=False,
         public=True,
@@ -159,7 +160,7 @@ class Loan(Base):
         info={"public": True, "recursive": False, "editable": True},
     )
     borrower_user_id = field(
-        Integer,
+        GUID,
         ForeignKey("core_user.id"),
         required=True,
         public=True,

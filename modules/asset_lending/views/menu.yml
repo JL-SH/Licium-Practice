@@ -1,0 +1,94 @@
+- model: ui.menuitem
+  ext_id: asset_lending_menu_root
+  fields:
+    title: "Assets"
+    icon: mdi-laptop
+    color_primary: "#4A7C59"
+    color_secondary: "#4A7C5966"
+
+- model: ui.action
+  ext_id: asset_lending_action_assets
+  fields:
+    name: "Assets - Recursos"
+    title:
+      $fallback: "Recursos"
+    route: assets/resources
+    model_key: asset_lending.asset
+    model_path: "asset_lending/asset"
+    menu: true
+    context:
+      allowed_group_ext_ids:
+        - asset_lending_group_reader
+        - asset_lending_group_manager
+        - core_group_superadmin
+    default_multi_read_view_id.ext_id: asset_lending_view_asset_list
+    default_single_edit_view_id.ext_id: asset_lending_view_asset_form
+    views.ext_id:
+      - asset_lending_view_asset_list
+      - asset_lending_view_asset_form
+
+- model: ui.menuitem
+  ext_id: asset_lending_menu_assets
+  fields:
+    title: "Recursos"
+    icon: mdi-monitor-multiple
+    parent_id.ext_id: asset_lending_menu_root
+    action_id.ext_id: asset_lending_action_assets
+
+- model: ui.action
+  ext_id: asset_lending_action_loans
+  fields:
+    name: "Assets - Préstamos"
+    title:
+      $fallback: "Préstamos"
+    route: assets/loans
+    model_key: asset_lending.loan
+    model_path: "asset_lending/loan"
+    menu: true
+    context:
+      allowed_group_ext_ids:
+        - asset_lending_group_reader
+        - asset_lending_group_manager
+        - core_group_superadmin
+    default_multi_read_view_id.ext_id: asset_lending_view_loan_list
+    default_single_edit_view_id.ext_id: asset_lending_view_loan_form
+    views.ext_id:
+      - asset_lending_view_loan_list
+      - asset_lending_view_loan_form
+
+- model: ui.menuitem
+  ext_id: asset_lending_menu_loans
+  fields:
+    title: "Préstamos"
+    icon: mdi-handshake-outline
+    parent_id.ext_id: asset_lending_menu_root
+    action_id.ext_id: asset_lending_action_loans
+
+- model: ui.action
+  ext_id: asset_lending_action_locations
+  fields:
+    name: "Assets - Ubicaciones"
+    title:
+      $fallback: "Ubicaciones"
+    route: assets/locations
+    model_key: asset_lending.location
+    model_path: "asset_lending/location"
+    menu: true
+    context:
+      allowed_group_ext_ids:
+        - asset_lending_group_reader
+        - asset_lending_group_manager
+        - core_group_superadmin
+    default_multi_read_view_id.ext_id: asset_lending_view_location_list
+    default_single_edit_view_id.ext_id: asset_lending_view_location_form
+    views.ext_id:
+      - asset_lending_view_location_list
+      - asset_lending_view_location_form
+
+- model: ui.menuitem
+  ext_id: asset_lending_menu_locations
+  fields:
+    title: "Ubicaciones"
+    icon: mdi-map-marker-outline
+    parent_id.ext_id: asset_lending_menu_root
+    action_id.ext_id: asset_lending_action_locations

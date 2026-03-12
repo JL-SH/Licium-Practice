@@ -1,0 +1,168 @@
+- model: ui.view
+  ext_id: asset_lending_view_location_list
+  fields:
+    name: "asset_lending.location - Lista"
+    title:
+      $fallback: "Ubicaciones - Lista"
+    model_key: asset_lending.location
+    type_id.ext_id: ui.ui_view_type_list
+    definition:
+      columns:
+        - { field: id, label: ID, width: 70 }
+        - { field: name, label: Ubicación, sortable: true }
+        - { field: code, label: Código, sortable: true }
+        - { field: is_active, label: Activo, width: 90 }
+      actions:
+        - { name: new, type: create, icon: mdi-plus, label: "Nuevo" }
+        - { name: edit, type: update, icon: mdi-pencil, label: "Editar" }
+        - { name: delete, type: delete, icon: mdi-delete, label: "Borrar" }
+
+- model: ui.view
+  ext_id: asset_lending_view_location_form
+  fields:
+    name: "asset_lending.location - Formulario"
+    title:
+      $fallback: "Ubicación - Formulario"
+    model_key: asset_lending.location
+    type_id.ext_id: ui.ui_view_type_form
+    definition:
+      groups:
+        - label: Básico
+          fields: [name, code, is_active]
+
+- model: ui.view
+  ext_id: asset_lending_view_asset_list
+  fields:
+    name: "asset_lending.asset - Lista"
+    title:
+      $fallback: "Recursos - Lista"
+    model_key: asset_lending.asset
+    type_id.ext_id: ui.ui_view_type_list
+    definition:
+      columns:
+        - { field: id, label: ID, width: 70 }
+        - { field: name, label: Recurso, sortable: true }
+        - { field: asset_code, label: Código, sortable: true }
+        - { field: status, label: Estado, chip: true }
+        - { field: location_id, label: Ubicación }
+        - { field: responsible_user_id, label: Responsable }
+      actions:
+        - { name: new, type: create, icon: mdi-plus, label: "Nuevo" }
+        - { name: edit, type: update, icon: mdi-pencil, label: "Editar" }
+        - { name: delete, type: delete, icon: mdi-delete, label: "Borrar" }
+      row_actions:
+        - key: mark_maintenance
+          type: service
+          label: "Mantenimiento"
+          icon: mdi-wrench
+          method: mark_maintenance
+          model_key: asset_lending.asset
+          groups: [asset_lending_group_manager, core_group_superadmin]
+          hidden: "item.status !== 'available'"
+          confirm:
+            text: "¿Pasar recurso a mantenimiento?"
+        - key: release_maintenance
+          type: service
+          label: "Liberar mantenimiento"
+          icon: mdi-check-circle-outline
+          method: release_maintenance
+          model_key: asset_lending.asset
+          groups: [asset_lending_group_manager, core_group_superadmin]
+          hidden: "item.status !== 'maintenance'"
+          confirm:
+            text: "¿Liberar recurso de mantenimiento?"
+
+- model: ui.view
+  ext_id: asset_lending_view_asset_form
+  fields:
+    name: "asset_lending.asset - Formulario"
+    title:
+      $fallback: "Recurso - Formulario"
+    model_key: asset_lending.asset
+    type_id.ext_id: ui.ui_view_type_form
+    definition:
+      groups:
+        - label: Básico
+          fields: [name, asset_code, status, location_id, responsible_user_id]
+        - label: Notas
+          fields: [notes]
+      form_actions:
+        - key: mark_maintenance
+          type: service
+          label: "Mantenimiento"
+          icon: mdi-wrench
+          method: mark_maintenance
+          groups: [asset_lending_group_manager, core_group_superadmin]
+          confirm:
+            text: "¿Pasar recurso a mantenimiento?"
+        - key: release_maintenance
+          type: service
+          label: "Liberar mantenimiento"
+          icon: mdi-check-circle-outline
+          method: release_maintenance
+          groups: [asset_lending_group_manager, core_group_superadmin]
+          confirm:
+            text: "¿Liberar recurso de mantenimiento?"
+
+- model: ui.view
+  ext_id: asset_lending_view_loan_list
+  fields:
+    name: "asset_lending.loan - Lista"
+    title:
+      $fallback: "Préstamos - Lista"
+    model_key: asset_lending.loan
+    type_id.ext_id: ui.ui_view_type_list
+    definition:
+      columns:
+        - { field: id, label: ID, width: 70 }
+        - { field: asset, label: Recurso }
+        - { field: borrower_user_id, label: Prestatario }
+        - { field: status, label: Estado, chip: true }
+        - { field: checkout_at, label: Fecha salida }
+        - { field: due_at, label: Fecha límite }
+        - { field: returned_at, label: Devolución }
+      actions:
+        - { name: new, type: create, icon: mdi-plus, label: "Nuevo" }
+        - { name: edit, type: update, icon: mdi-pencil, label: "Editar" }
+        - { name: delete, type: delete, icon: mdi-delete, label: "Borrar" }
+      row_actions:
+        - key: return_asset
+          type: service
+          label: "Devolver Recurso"
+          icon: mdi-keyboard-return
+          method: return_asset
+          model_key: asset_lending.loan
+          groups: [asset_lending_group_manager, core_group_superadmin]
+          hidden: "item.status !== 'open'"
+          confirm:
+            text: "Confirmar devolucion del equipo?"
+          params:
+            - name: note
+              label: "Nota de devolucion (opcional)"
+              type: string
+
+- model: ui.view
+  ext_id: asset_lending_view_loan_form
+  fields:
+    name: "asset_lending.loan - Formulario"
+    title:
+      $fallback: "Préstamo - Formulario"
+    model_key: asset_lending.loan
+    type_id.ext_id: ui.ui_view_type_form
+    definition:
+      groups:
+        - label: Básico
+          fields: [asset_id, borrower_user_id, status]
+        - label: Fechas
+          fields: [checkout_at, due_at, returned_at]
+        - label: Notas
+          fields: [checkout_note, return_note]
+      form_actions:
+        - key: return_asset
+          type: service
+          label: "Devolver Recurso"
+          icon: mdi-keyboard-return
+          method: return_asset
+          groups: [asset_lending_group_manager, core_group_superadmin]
+          confirm:
+            text: "Confirmar devolucion del equipo?"

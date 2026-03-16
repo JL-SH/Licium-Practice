@@ -1,0 +1,11 @@
+- model: core.group
+  ext_id: community_events_group_viewer
+  fields:
+    name: "Eventos | Lector"
+    parent_id.ext_id: core.core_group_internal_user
+
+- model: core.group
+  ext_id: community_events_group_staff
+  fields:
+    name: "Eventos | Organizador - Staff"
+    parent_id.ext_id: community_events_group_viewer

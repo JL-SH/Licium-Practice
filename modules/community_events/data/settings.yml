@@ -1,0 +1,27 @@
+- model: core.setting
+  ext_id: ce_setting_allow_waitlist
+  fields:
+    key: "community_events.allow_waitlist"
+    value: "true"
+    type: "boolean"
+
+- model: core.setting
+  ext_id: ce_setting_default_capacity
+  fields:
+    key: "community_events.default_capacity"
+    value: "100"
+    type: "integer"
+
+- model: core.setting
+  ext_id: ce_setting_auto_confirm
+  fields:
+    key: "community_events.auto_confirm"
+    value: "false"
+    type: "boolean"
+
+- model: core.setting
+  ext_id: ce_setting_reminder_hours
+  fields:
+    key: "community_events.reminder_hours_before"
+    value: "24"
+    type: "integer"

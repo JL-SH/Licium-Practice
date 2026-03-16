@@ -1,0 +1,27 @@
+
+- model: core.aclrule
+  ext_id: ce_acl_staff_all
+  fields:
+    model_key: "community_events.*"
+    group_id.ext_id: community_events_group_staff
+    perm_read: true
+    perm_write: true
+    perm_create: true
+    perm_delete: true
+
+- model: core.aclrule
+  ext_id: ce_acl_public_read_events
+  fields:
+    model_key: "community_events.event"
+    group_id.ext_id: core.core_group_public
+    perm_read: true
+    domain:
+      - { field: "status", operator: "=", value: "published" }
+      - { field: "is_public", operator: "=", value: true }
+
+- model: core.aclrule
+  ext_id: ce_acl_public_create_registrations
+  fields:
+    model_key: "community_events.registration"
+    group_id.ext_id: core.core_group_public
+    perm_create: true

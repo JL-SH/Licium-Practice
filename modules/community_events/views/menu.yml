@@ -1,0 +1,50 @@
+- model: ui.menuitem
+  ext_id: ce_menu_root
+  fields:
+    title: "Eventos"
+    icon: mdi-ticket-confirmation
+    color_primary: "#FF5722"
+
+# Menú: Eventos
+- model: ui.action
+  ext_id: ce_action_events
+  fields:
+    name: "Gestión de Eventos"
+    route: community_events/events
+    model_key: community_events.event
+    model_path: "community_events/event"
+    menu: true
+    context:
+      allowed_group_ext_ids: [community_events_group_staff, core_group_superadmin]
+    default_multi_read_view_id.ext_id: ce_view_event_list
+    default_single_edit_view_id.ext_id: ce_view_event_form
+
+- model: ui.menuitem
+  ext_id: ce_menu_events
+  fields:
+    title: "Eventos"
+    icon: mdi-calendar-star
+    parent_id.ext_id: ce_menu_root
+    action_id.ext_id: ce_action_events
+
+# Menú: Inscripciones
+- model: ui.action
+  ext_id: ce_action_registrations
+  fields:
+    name: "Inscripciones"
+    route: community_events/registrations
+    model_key: community_events.registration
+    model_path: "community_events/registration"
+    menu: true
+    context:
+      allowed_group_ext_ids: [community_events_group_staff, core_group_superadmin]
+    default_multi_read_view_id.ext_id: ce_view_registration_list
+    default_single_edit_view_id.ext_id: ce_view_registration_form
+
+- model: ui.menuitem
+  ext_id: ce_menu_registrations
+  fields:
+    title: "Inscripciones"
+    icon: mdi-account-group
+    parent_id.ext_id: ce_menu_root
+    action_id.ext_id: ce_action_registrations

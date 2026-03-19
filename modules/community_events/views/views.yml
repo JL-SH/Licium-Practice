@@ -1,0 +1,98 @@
+# ========================
+# EVENTOS
+# ========================
+- model: ui.view
+  ext_id: ce_view_event_list
+  fields:
+    name: "Eventos - Lista"
+    model_key: community_events.event
+    type_id.ext_id: ui.ui_view_type_list
+    definition:
+      columns:
+        - { field: title, label: Título }
+        - { field: start_at, label: Inicio }
+        - { field: capacity_total, label: Aforo }
+        - { field: status, label: Estado, chip: true }
+      # Filtros rápidos predefinidos
+      filters:
+        - { name: "Publicados", domain: [{ field: "status", operator: "=", value: "published" }] }
+        - { name: "Borradores", domain: [{ field: "status", operator: "=", value: "draft" }] }
+      row_actions:
+        - { key: publish, type: service, label: "Publicar", method: publish_event, icon: mdi-earth, hidden: "item.status !== 'draft'" }
+        - { key: close, type: service, label: "Cerrar", method: close_registration, icon: mdi-door-closed, hidden: "item.status !== 'published'" }
+      actions:
+        - { name: new, type: create, icon: mdi-plus }
+        - { name: edit, type: update, icon: mdi-pencil }
+
+- model: ui.view
+  ext_id: ce_view_event_form
+  fields:
+    name: "Eventos - Form"
+    model_key: community_events.event
+    type_id.ext_id: ui.ui_view_type_form
+    definition:
+      # BUTTONBOX: El acceso directo a las inscripciones desde dentro del evento
+      buttonbox:
+        - icon: mdi-ticket-account
+          label: "Inscripciones"
+          route: "community_events/registrations"
+          query: { "event_id": "item.id" }
+      groups:
+        - label: Datos Generales
+          fields: [title, slug, summary, description, is_public]
+        - label: Logística
+          fields: [start_at, end_at, location, capacity_total]
+        - label: Administración
+          fields: [status, organizer_user_id]
+      form_actions:
+        - key: cancel
+          type: service
+          label: "Cancelar Evento"
+          method: cancel_event
+          hidden: "item.status === 'cancelled'"
+          params: [{ name: reason, label: "Motivo", type: string, required: true }]
+
+# ========================
+# INSCRIPCIONES (REGISTRATIONS)
+# ========================
+- model: ui.view
+  ext_id: ce_view_registration_list
+  fields:
+    name: "Inscripciones - Lista"
+    model_key: community_events.registration
+    type_id.ext_id: ui.ui_view_type_list
+    definition:
+      columns:
+        - { field: attendee_name, label: Asistente }
+        - { field: attendee_email, label: Email }
+        - { field: event_id, label: Evento }
+        - { field: status, label: Estado, chip: true }
+        - { field: checkin_at, label: Check-in }
+      # ACCIÓN MASIVA (Bulk Action)
+      bulk_actions:
+        - key: bulk_checkin
+          type: service
+          label: "Validar Check-in Masivo"
+          icon: mdi-qrcode-scan
+          method: bulk_checkin
+      # ACCIONES DE FILA (Row Actions)
+      row_actions:
+        - { key: confirm, type: service, label: "Confirmar", method: confirm, icon: mdi-check-circle, hidden: "item.status !== 'pending'" }
+        - { key: waitlist, type: service, label: "A Espera", method: move_waitlist, icon: mdi-clock-outline, hidden: "item.status === 'waitlist'" }
+        - { key: checkin, type: service, label: "Hacer Check-in", method: checkin, icon: mdi-account-check, hidden: "item.checkin_at || item.status === 'cancelled'" }
+      actions:
+        - { name: new, type: create, icon: mdi-plus }
+        - { name: edit, type: update, icon: mdi-pencil }
+
+- model: ui.view
+  ext_id: ce_view_registration_form
+  fields:
+    name: "Inscripciones - Form"
+    model_key: community_events.registration
+    type_id.ext_id: ui.ui_view_type_form
+    definition:
+      groups:
+        - label: Inscripción
+          fields: [event_id, session_id, attendee_name, attendee_email, attendee_user_id]
+        - label: Estado y Control
+          fields: [status, checkin_at, notes]

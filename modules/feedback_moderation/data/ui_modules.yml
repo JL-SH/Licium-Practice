@@ -1,0 +1,7 @@
+- model: ui.uimodule
+  ext_id: feedback_ui_module
+  fields:
+    slug: feedback
+    name: Feedback & Moderation
+    description: "Sistema de sugerencias y comentarios públicos"
+    active: true

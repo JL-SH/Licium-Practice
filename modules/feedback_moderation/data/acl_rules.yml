@@ -1,0 +1,31 @@
+- model: core.aclrule
+  ext_id: feedback_acl_moderator_all
+  fields:
+    model_key: "feedback_moderation.*"
+    group_id.ext_id: feedback_group_moderator
+    perm_read: true
+    perm_write: true
+    perm_create: true
+    perm_delete: true
+
+- model: core.aclrule
+  ext_id: feedback_acl_public_create_read_suggestion
+  fields:
+    model_key: "feedback_moderation.suggestion"
+    group_id.ext_id: core.core_group_public  
+    perm_create: true
+    perm_read: true
+    domain:
+      - { field: "status", operator: "=", value: "published" }
+      - { field: "is_public", operator: "=", value: true }
+
+- model: core.aclrule
+  ext_id: feedback_acl_public_create_read_comment
+  fields:
+    model_key: "feedback_moderation.comment"
+    group_id.ext_id: core.core_group_public
+    perm_create: true
+    perm_read: true
+    domain:
+      - { field: "status", operator: "=", value: "published" }
+      - { field: "is_public", operator: "=", value: true }

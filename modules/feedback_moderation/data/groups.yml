@@ -1,0 +1,11 @@
+- model: core.group
+  ext_id: feedback_group_viewer
+  fields:
+    name: "Feedback | Lector"
+    parent_id.ext_id: core.core_group_internal_user
+
+- model: core.group
+  ext_id: feedback_group_moderator
+  fields:
+    name: "Feedback | Moderador"
+    parent_id.ext_id: feedback_group_viewer

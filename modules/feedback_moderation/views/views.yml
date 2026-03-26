@@ -1,0 +1,129 @@
+- model: ui.view
+  ext_id: feedback_view_suggestion_list
+  fields:
+    name: "Sugerencias - Lista"
+    model_key: feedback_moderation.suggestion
+    type_id.ext_id: ui.ui_view_type_list
+    definition:
+      columns:
+        - { field: id, label: ID, width: 70 }
+        - { field: title, label: Título }
+        - { field: author_email, label: Email Autor }
+        - { field: status, label: Estado, chip: true }
+        - { field: published_at, label: Publicado }
+      actions:
+        - { name: new, type: create, icon: mdi-plus, label: "Nueva" }
+        - { name: edit, type: update, icon: mdi-pencil, label: "Ver/Moderar" }
+
+- model: ui.view
+  ext_id: feedback_view_suggestion_form
+  fields:
+    name: "Sugerencias - Form"
+    model_key: feedback_moderation.suggestion
+    type_id.ext_id: ui.ui_view_type_form
+    definition:
+      groups:
+        - label: Contenido
+          fields: [title, content, tags]
+        - label: Autoría
+          fields: [author_name, author_email]
+        - label: Moderación
+          fields: [status, is_public, moderation_note, reviewed_by_id]
+      form_actions:
+        - key: publish
+          type: service
+          label: "Publicar"
+          icon: mdi-check-decagram
+          method: publish
+          groups: [feedback_group_moderator, core_group_superadmin]
+          hidden: "item.status === 'published'"
+        - key: reject
+          type: service
+          label: "Rechazar"
+          icon: mdi-close-octagon
+          method: reject
+          groups: [feedback_group_moderator, core_group_superadmin]
+          hidden: "item.status === 'rejected'"
+          params:
+            - name: note
+              label: "Motivo del rechazo"
+              type: string
+              required: true
+        - key: merge
+          type: service
+          label: "Fusionar con..."
+          icon: mdi-source-merge
+          method: merge
+          groups: [feedback_group_moderator, core_group_superadmin]
+          hidden: "item.status === 'merged'"
+          params:
+            - name: target_id
+              label: "ID de Sugerencia Destino"
+              type: integer
+              required: true
+            - name: note
+              label: "Nota interna"
+              type: string
+
+
+- model: ui.view
+  ext_id: feedback_view_comment_list
+  fields:
+    name: "Comentarios - Lista"
+    model_key: feedback_moderation.comment
+    type_id.ext_id: ui.ui_view_type_list
+    definition:
+      columns:
+        - { field: suggestion_id, label: Sugerencia }
+        - { field: author_email, label: Email }
+        - { field: status, label: Estado, chip: true }
+      actions:
+        - { name: new, type: create, icon: mdi-plus }
+        - { name: edit, type: update, icon: mdi-pencil }
+
+- model: ui.view
+  ext_id: feedback_view_comment_form
+  fields:
+    name: "Comentarios - Form"
+    model_key: feedback_moderation.comment
+    type_id.ext_id: ui.ui_view_type_form
+    definition:
+      groups:
+        - label: Datos
+          fields: [suggestion_id, content, author_email, status]
+      form_actions:
+        - key: publish_c
+          type: service
+          label: "Aprobar"
+          method: publish_comment
+          groups: [feedback_group_moderator, core_group_superadmin]
+        - key: reject_c
+          type: service
+          label: "Rechazar"
+          method: reject_comment
+          groups: [feedback_group_moderator, core_group_superadmin]
+
+- model: ui.view
+  ext_id: feedback_view_tag_list
+  fields:
+    name: "Tags - Lista"
+    model_key: feedback_moderation.tag
+    type_id.ext_id: ui.ui_view_type_list
+    definition:
+      columns:
+        - { field: name, label: Etiqueta }
+        - { field: slug, label: Slug }
+      actions:
+        - { name: new, type: create, icon: mdi-plus }
+        - { name: edit, type: update, icon: mdi-pencil }
+
+- model: ui.view
+  ext_id: feedback_view_tag_form
+  fields:
+    name: "Tags - Form"
+    model_key: feedback_moderation.tag
+    type_id.ext_id: ui.ui_view_type_form
+    definition:
+      groups:
+        - label: Tag
+          fields: [name, slug, color]

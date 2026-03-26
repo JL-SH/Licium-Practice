@@ -1,0 +1,69 @@
+- model: ui.menuitem
+  ext_id: feedback_menu_root
+  fields:
+    title: "Feedback"
+    icon: mdi-forum
+    color_primary: "#9C27B0"
+
+- model: ui.action
+  ext_id: feedback_action_suggestions
+  fields:
+    name: "Sugerencias"
+    route: feedback/suggestions
+    model_key: feedback_moderation.suggestion
+    model_path: "feedback_moderation/suggestion"
+    menu: true
+    context:
+      allowed_group_ext_ids: [feedback_group_moderator, core_group_superadmin]
+    default_multi_read_view_id.ext_id: feedback_view_suggestion_list
+    default_single_edit_view_id.ext_id: feedback_view_suggestion_form
+
+- model: ui.menuitem
+  ext_id: feedback_menu_suggestions
+  fields:
+    title: "Sugerencias"
+    icon: mdi-lightbulb-on
+    parent_id.ext_id: feedback_menu_root
+    action_id.ext_id: feedback_action_suggestions
+
+- model: ui.action
+  ext_id: feedback_action_comments
+  fields:
+    name: "Comentarios"
+    route: feedback/comments
+    model_key: feedback_moderation.comment
+    model_path: "feedback_moderation/comment"
+    menu: true
+    context:
+      allowed_group_ext_ids: [feedback_group_moderator, core_group_superadmin]
+    default_multi_read_view_id.ext_id: feedback_view_comment_list
+    default_single_edit_view_id.ext_id: feedback_view_comment_form
+
+- model: ui.menuitem
+  ext_id: feedback_menu_comments
+  fields:
+    title: "Comentarios"
+    icon: mdi-comment-multiple
+    parent_id.ext_id: feedback_menu_root
+    action_id.ext_id: feedback_action_comments
+
+- model: ui.action
+  ext_id: feedback_action_tags
+  fields:
+    name: "Etiquetas"
+    route: feedback/tags
+    model_key: feedback_moderation.tag
+    model_path: "feedback_moderation/tag"
+    menu: true
+    context:
+      allowed_group_ext_ids: [feedback_group_moderator, core_group_superadmin]
+    default_multi_read_view_id.ext_id: feedback_view_tag_list
+    default_single_edit_view_id.ext_id: feedback_view_tag_form
+
+- model: ui.menuitem
+  ext_id: feedback_menu_tags
+  fields:
+    title: "Etiquetas"
+    icon: mdi-tag-multiple
+    parent_id.ext_id: feedback_menu_root
+    action_id.ext_id: feedback_action_tags
